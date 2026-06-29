@@ -1,4 +1,5 @@
 from datasets import load_dataset
+from convert import COCOToYOLOConverter
 
 def main():
     """
@@ -6,8 +7,9 @@ def main():
     1. Loads the BMD-45 dataset from Hugging Face:
        https://huggingface.co/datasets/iisc-aim/BMD-45
     2. Uses streaming to avoid downloading the full dataset during subset selection.
-    3. Takes the first 150 images from the train split for fine-tuning/adaptation.
+    3. Takes the first 150 images from the train split for fine-tuning.
     4. Takes the first 30 images from the val split for demo inference
+    5. Converts both subsets to YOLO format and saves them to disk.
     """
     ds = load_dataset("iisc-aim/BMD-45", streaming=True)
 
@@ -23,6 +25,11 @@ def main():
     # Print the first sample from the train subsset to see the format of the data
     sample = train_list[0]
     print(sample["objects"])
+
+    # Convert the dataset to YOLO format and save both splits to disk
+    converter = COCOToYOLOConverter("data/yolo")
+    converter.convert_dataset(train_list, "train")
+    converter.convert_dataset(demo_list, "demo")
 
 if __name__ == "__main__":
     main()
