@@ -14,9 +14,9 @@ data/
 yolo_data.zip
 
 # Model weights
-best.pt
 *.pt
-
+!src/models/
+!src/models/best.pt
 # Mac system files
 .DS_Store
 
