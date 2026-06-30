@@ -211,12 +211,14 @@ class TrafficDensityApp:
         st.markdown("---")
         st.subheader("Notes and Limitations")
         st.write(
-            "This app uses vehicle detections to estimate a simple traffic-density label."
+            "This model was trained on only 150 images, so it is not very accurate. "
+            "It may miss vehicles that are far away, blurry, or hidden behind trees and poles. "
+            "Density is estimated from raw vehicle count only and does not account for road size, "
+            "lane count, or the vehicle speed." 
+            
         )
-
         st.write(
-            "Results may be less accurate for blurry images, dark scenes, "
-            "blocked vehicles, far-away vehicles, or images with unusual camera angles."
+            "In the future, training on more images and using area-based density logic would improve results."
         )
 
         st.markdown(
