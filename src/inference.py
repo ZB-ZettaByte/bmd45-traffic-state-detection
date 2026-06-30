@@ -114,7 +114,7 @@ class VehicleDetector:
 
 
 if __name__ == "__main__":
-    detector = VehicleDetector("best.pt")
+    detector = VehicleDetector("src/models/best.pt")
     results = detector.predict_folder("data/yolo/images")
     detector.save_to_csv(results, "outputs/sample_predictions.csv")
     print("inference done")
