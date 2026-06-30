@@ -105,7 +105,7 @@ This logic is implemented in `src/inference.py`.
 │   │   └── best.pt          # Trained YOLO model weights
 │   └── visualization.py     # Draws sample bounding boxes with OpenCV
 ├── outputs/
-│   ├── sample_predictions.csv or sample_predictions.json
+│   ├── sample_predictions.csv
 │   └── sample_detection_images/  # Not more than 10
 ├── pyproject.toml           # Python project metadata and dependencies
 ├── uv.lock                  # Locked dependency versions
