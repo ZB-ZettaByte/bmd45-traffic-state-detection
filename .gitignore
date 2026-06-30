@@ -7,7 +7,18 @@ wheels/
 *.egg-info
 
 # Virtual environments
-.venv
+.venv/
 
 # Local dataset files
 data/
+yolo_data.zip
+
+# Model weights
+best.pt
+*.pt
+
+# Mac system files
+.DS_Store
+
+# Output files
+outputs/
