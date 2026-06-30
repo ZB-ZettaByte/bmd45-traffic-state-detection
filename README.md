@@ -346,6 +346,7 @@ The final `packages.txt` contains:
 ```txt
 libgl1
 libglib2.0-0t64
+```
 
 ## Development Environment
 
