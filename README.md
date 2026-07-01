@@ -6,6 +6,11 @@ The project uses a fine-tuned YOLO26n model, a small streamed subset of the BMD-
 
 ## Demo
 
+A short demo video showing the Streamlit app workflow is available here:
+
+- **Demo Video:** [https://youtu.be/bCPGBkK0z5g](https://youtu.be/bCPGBkK0z5g)
+- **Live Demo:** [https://bmd45-traffic-state-detection.streamlit.app/](https://bmd45-traffic-state-detection.streamlit.app/)
+
 ## Dataset
 
 This project uses the [BMD-45 dataset](https://huggingface.co/datasets/iisc-aim/BMD-45) from Hugging Face:
