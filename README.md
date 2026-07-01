@@ -1,6 +1,6 @@
 # BMD-45 Traffic State Detection
 
-A small traffic-camera computer vision project that detects vehicles and assigns a simple traffic density state: `unclear`, `low`, `medium`, or `high`.
+A small traffic-camera computer vision project that detects vehicles and assigns a simple traffic density state: **unclear**, **low**, **medium**, or **high**.
 
 The project uses a fine-tuned YOLO26n model, a small streamed subset of the BMD-45 Bengaluru mobility dataset, a command-line inference script, and a Streamlit demo app for uploading traffic images.
 
