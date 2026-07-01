@@ -284,7 +284,7 @@ The Streamlit app in `app/main.py` provides an upload-based demo:
 Start command:
 
 ```bash
-streamlit run app/main.py
+uv run streamlit run app/main.py
 ```
 
 Default local app URL:
