@@ -6,8 +6,6 @@ The project uses a fine-tuned YOLO26n model, a small streamed subset of the BMD-
 
 ## Demo
 
-[VIDEO_LINK_HERE]
-
 ## Dataset
 
 This project uses the [BMD-45 dataset](https://huggingface.co/datasets/iisc-aim/BMD-45) from Hugging Face:
