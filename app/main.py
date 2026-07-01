@@ -26,9 +26,9 @@ class TrafficDensityApp:
         """
         setup_page: Sets up the Streamlit page config and title for the application
         """
-        st.set_page_config(page_title="Traffic State Detection", layout="wide")
+        st.set_page_config(page_title="BMD-45 Traffic State Detection", layout="wide")
 
-        st.title("Traffic State Detection")
+        st.title("BMD-45 Traffic State Detection")
         
         self.display_github_link()
         st.write(
