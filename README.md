@@ -2,7 +2,7 @@
 
 A small traffic-camera computer vision project that detects vehicles and assigns a simple traffic density state: `unclear`, `low`, `medium`, or `high`.
 
-The project uses a fine-tuned YOLO26n model, a small streamed subset of the BMD-45 Bengaluru Mobility Dataset, a command-line inference script, and a Streamlit demo app for uploading traffic images.
+The project uses a fine-tuned YOLO26n model, a small streamed subset of the BMD-45 Bengaluru mobility dataset, a command-line inference script, and a Streamlit demo app for uploading traffic images.
 
 ## Demo
 
@@ -18,7 +18,7 @@ This project uses the BMD-45 subset from Hugging Face:
 - Source split for training subset: first 150 samples from `train`
 - Source split for demo subset: first 30 samples from `val`
 
-The frames were selected with the Hugging Face `datasets` library using `streaming=True`. This avoids downloading the full 45k-image dataset locally. The subset selection is implemented in `src/load_data.py`:
+The frames were selected with the Hugging Face `datasets` library using `streaming=True` to avoid downloading the full 45k-image dataset. The subset selection is implemented in `src/load_data.py`:
 
 ```python
 ds = load_dataset("iisc-aim/BMD-45", streaming=True)
@@ -33,7 +33,7 @@ data/yolo/images/
 data/yolo/labels/
 ```
 
-Generated dataset files are ignored by Git.
+Generated dataset files are not committed to Git. They can be recreated by running the dataset conversion and preparation scripts.
 
 ## Model Setup
 
@@ -58,7 +58,19 @@ The trained model weights should be saved as:
 src/models/best.pt
 ```
 
-Place `best.pt` inside the `src/models/` folder before running inference or launching the Streamlit app. The deployment expects this file to be available at `src/models/best.pt`.
+Place `best.pt` inside the `src/models/` folder before running inference or launching the Streamlit app. The deployment expects this file to be under `src/models/`.
+
+<a id="data-preparation-for-colab"></a>
+
+## Data Preparation for Colab
+
+Before using the Colab notebook for training, zip the `sample_detection_images/` folder created by running the visualization script:
+
+```bash
+uv run python src/visualization.py
+zip -r sample_detection_images.zip sample_detection_images/
+```
+<a id="training-in-google-colab"></a>
 
 ## Training in Google Colab
 
@@ -66,17 +78,9 @@ Use the Google Colab notebook to train the YOLO26n model with GPU support:
 
 https://colab.research.google.com/drive/1lakC27oJayAtklOCSkJTtABzhzZApsY7?usp=sharing
 
-Training steps:
+The training steps are included inside the Google Colab notebook.
 
-1. Open the Colab notebook link.
-2. In Colab, go to `Runtime` > `Change runtime type`.
-3. Select `T4 GPU` as the hardware accelerator.
-4. Run the notebook cells to install dependencies and prepare the training environment.
-5. Load the BMD-45 subset from Hugging Face using streaming.
-6. Convert the selected BMD-45 annotations to YOLO format.
-7. Train YOLO26n using `epochs=80`, `imgsz=640`, `batch=16`, and `augment=True`.
-8. After training finishes, download the best model weights.
-9. Save the downloaded weights locally as `src/models/best.pt`.
+After training finishes, download the best model weights and save them inside the `src/models/` folder as `best.pt`
 
 ## Density Label Logic
 
@@ -123,12 +127,27 @@ yolo_data.zip
 
 These are ignored by Git.
 
+## Environment & Tech Stack
+
+- **VS Code**: Development
+- **Google Colab**: YOLO26n model training with a T4 GPU
+
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
+![YOLO](https://img.shields.io/badge/YOLO-Ultralytics-111F68)
+![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?logo=opencv&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)
+![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Datasets-FFD21E?logo=huggingface&logoColor=black)
+![uv](https://img.shields.io/badge/uv-Python%20Manager-DE5FE9)
+![Google Colab](https://img.shields.io/badge/Google%20Colab-T4%20GPU-F9AB00?logo=googlecolab&logoColor=black)
+![VS Code](https://img.shields.io/badge/VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)
+
 ## Application Setup
 
 ### 1. Clone the repository
 
 ```bash
 git clone https://github.com/ZB-ZettaByte/bmd45-traffic-state-detection.git
+
 cd bmd45-traffic-state-detection
 ```
 
@@ -167,29 +186,22 @@ Core dependencies include:
 - `streamlit`
 - `ultralytics`
 
-### 4. Add model weights
+### 4. Data Collection
 
-After training in Google Colab, download the trained YOLO weights into the `src/models/` folder as shown in [Training in Google Colab](#training-in-google-colab):
-
-```text
-src/models/best.pt
-```
-
-Both `src/inference.py` and `app/main.py` currently load this file from `src/models/best.pt`.
-
-Beginner checklist before running the app:
-
-- Confirm `src/models/best.pt` exists.
-- Run `uv sync` after cloning the project.
-- Use `uv run streamlit run app/main.py` if `streamlit` is not available globally.
-- Open `http://localhost:8501` after Streamlit starts.
-
-### 5. Prepare the dataset subset
-
-Run the data loader to stream the subset from Hugging Face and convert annotations to YOLO format:
+Run the data loader to download the selected BMD-45 subset from Hugging Face.
 
 ```bash
 uv run python src/load_data.py
+```
+
+This step collects the traffic-camera images and annotation data needed for the project.
+
+### 5. Data Preparation
+
+Run the conversion script to convert the selected BMD-45 annotations into YOLO format.
+
+```bash
+uv run python src/convert.py
 ```
 
 Expected generated folders:
@@ -199,49 +211,48 @@ data/yolo/images/
 data/yolo/labels/
 ```
 
-### 6. Optional: Generate sample annotated images
+Generated dataset files are not committed to Git. They can be recreated by running the data collection and conversion scripts.
 
-To draw OpenCV bounding boxes on sample training images:
+### 6. Verify Data Annotations
+
+This step draws the converted YOLO bounding boxes on a few sample images to visually verify the COCO to YOLO conversion worked:
 
 ```bash
 uv run python src/visualization.py
 ```
 
-Annotated images are saved to:
+Annotated images are saved to `outputs/sample_detection_images/`.
+
+### 7. Model Training
+
+Model training is done in Google Colab. Before training, first create the Colab training zip file using the [Data Preparation for Colab](#data-preparation-for-colab) section. Then train the model using the [Training in Google Colab](#training-in-google-colab) section.
+
+After training finishes, download the best model weights and save them as:
 
 ```text
-outputs/sample_detection_images/
+src/models/best.pt
 ```
 
-### 7. Run batch inference
+### 8. Run Inference
 
-Run inference over images in `data/yolo/images` and write vehicle counts plus density labels to a CSV:
+Then run batch inference over images in `data/yolo/images/` and write vehicle counts plus density labels to a CSV file.
 
 ```bash
 uv run python src/inference.py
 ```
+Output saved to `outputs/sample_predictions.csv`
 
-Output:
+### 9. Start the Streamlit App
 
-```text
-outputs/sample_predictions.csv
-```
-
-### 8. Start the Streamlit App
-
-Launch the app locally using:
+Run the Streamlit app locally:
 
 ```bash
 uv run streamlit run app/main.py
 ```
 
-By default, the Streamlit app starts at:
+After Streamlit starts, open `http://localhost:8501`
 
-```text
-http://localhost:8501
-```
-
-Then upload one or more traffic images. The app displays the original image, YOLO detections, total vehicle count, per-class counts, and the density label.
+The app lets a user upload traffic images and view the original image, image with detections, vehicle counts, density label, and notes/limitations.
 
 ## Inference Workflow
 
@@ -288,45 +299,20 @@ The app can be deployed to Streamlit Cloud for free.
 
 ### Streamlit Cloud Setup
 
-1. Push the repository to GitHub.
-2. Go to [share.streamlit.io](https://share.streamlit.io).
-3. Log in to Streamlit Cloud.
-4. Connect your GitHub account.
-5. Click `Create app`.
+1. Push the repository to GitHub
+2. Go to [share.streamlit.io](https://share.streamlit.io)
+3. Log in to Streamlit Cloud
+4. Connect your GitHub account
+5. Click `Create app`
 6. Choose `Deploy a public app from GitHub`.
-7. In `Repository`, select the GitHub repository, for example:
+7. In `Repository`, select the GitHub repository, for example: `ZB-ZettaByte/bmd45-traffic-state-detection`
+8. In `Branch`, select: `main`
+9. In `Main file path`, enter: `app/main.py`
+10. Click `Deploy`
 
-   `ZB-ZettaByte/bmd45-traffic-state-detection`
-
-8. In `Branch`, select:
-
-   `main`
-
-9. In `Main file path`, enter:
-
-   `app/main.py`
-
-10. Click `Deploy`.
-
-The model weights are included in the repository at:
-
-`src/models/best.pt`
+The model weights are included in the repository at: `src/models/best.pt`
 
 Because the model file is already included, no extra model download or setup is needed on Streamlit Cloud.
-
----
-
-### Files Needed for Deployment
-
-Before deploying, make sure these files are committed to GitHub:
-
-- `app/main.py`
-- `src/inference.py`
-- `src/models/best.pt`
-- `pyproject.toml`
-- `uv.lock`
-- `packages.txt`
-- `README.md`
 
 ---
 
@@ -347,10 +333,6 @@ The final `packages.txt` contains:
 libgl1
 libglib2.0-0t64
 ```
-
-## Development Environment
-
-Local development was done in VS Code. Model training was done in Google Colab using a T4 GPU.
 
 ## Known Limitations
 
