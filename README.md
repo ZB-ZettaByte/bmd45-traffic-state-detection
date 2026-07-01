@@ -386,7 +386,7 @@ Prompt used:
 
 > Please help me fix small UI issues in only these two Streamlit methods: `display_github_link(self)` and `show_notes_and_footer(self)`.
 >
-> Keep the current OOP structure and update only the existing methods. Do not change the detection logic, upload logic, multi-image support, or vehicle counting.
+> Keep the current OOP structure.
 >
 > 1. For `display_github_link(self)`, make the GitHub link look cleaner by replacing the badge-style link with a small GitHub button using an inline SVG icon. Link it to the project GitHub repository.
 >
@@ -403,7 +403,7 @@ Used for guidance in the `display_github_link(self)` and `show_notes_and_footer(
 
 Prompt used:
 
-> Explain the formula for converting a bounding box from COCO format to YOLO format. COCO uses `[x, y, width, height]` with `x` and `y` as the top-left corner. YOLO needs normalized center coordinates: `x_center`, `y_center`, `width`, and `height`. Please explain the calculation step by step in a beginner way so I can apply it in my existing conversion method.
+> Explain the formula for converting a bounding box from COCO format to YOLO format. COCO uses [x, y, width, height] with x and y as the top-left corner. YOLO needs normalized center coordinates: x_center, y_center, width, and height. Please explain the calculation step by step in a beginner way so I can apply it in my existing conversion method.
 
 Used for guidance in the `convert_bbox(self, bbox, img_width, img_height)` method in `src/convert.py`.
 
@@ -423,7 +423,7 @@ Prompt used:
 >
 > Also help me format the Project Structure section in a README style. Keep it simple
 
-Used for guidance in formatting the `Density Label Logic` and `Project Structure` sections in `README.md`.
+Used for guidance in formatting the Density Label Logic and Project Structure sections in `README.md`.
 
 </details>
 
