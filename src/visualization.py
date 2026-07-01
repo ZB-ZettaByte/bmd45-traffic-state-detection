@@ -32,11 +32,6 @@ class SampleVisualizer:
         9: "Mini-bus", 10: "Tempo", 11: "Bicycle", 12: "Van", 13: "Other"
     }
     
-    # used Claude's code for drawing boxes on images for accurate visualization
-    """
-    Claude Prompt: 
-
-    """
     def draw_boxes(self, image_path, label_path):
         """
         draw_boxes: Draws bounding boxes on an image based on YOLO label file.
