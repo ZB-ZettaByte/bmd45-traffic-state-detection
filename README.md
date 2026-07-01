@@ -10,13 +10,13 @@ The project uses a fine-tuned YOLO26n model, a small streamed subset of the BMD-
 
 ## Dataset
 
-This project uses the BMD-45 subset from Hugging Face:
+This project uses the [BMD-45 dataset](https://huggingface.co/datasets/iisc-aim/BMD-45) from Hugging Face:
 
-- Dataset: `iisc-aim/BMD-45`
+- Dataset: [https://huggingface.co/datasets/iisc-aim/BMD-45](https://huggingface.co/datasets/iisc-aim/BMD-45)
 - Training subset: 150 images
 - Demo subset: 30 images
-- Source split for training subset: first 150 samples from `train`
-- Source split for demo subset: first 30 samples from `val`
+- Source split for training subset: first 150 samples from training split
+- Source split for demo subset: first 30 samples from validation split
 
 The frames were selected with the Hugging Face `datasets` library using `streaming=True` to avoid downloading the full 45k-image dataset. The subset selection is implemented in `src/load_data.py`:
 
@@ -33,11 +33,11 @@ data/yolo/images/
 data/yolo/labels/
 ```
 
-Generated dataset files are not committed to Git. They can be recreated by running the dataset conversion and preparation scripts.
+Generated dataset files are not committed to Git. They can be recreated by running the dataset conversion and preparation scripts
 
 ## Model Setup
 
-The detection model is YOLO26n fine-tuned on the BMD-45 subset using Google Colab with a T4 GPU.
+The detection model is YOLO26n fine-tuned on the BMD-45 subset using Google Colab with a T4 GPU
 
 Training configuration:
 
@@ -58,7 +58,7 @@ The trained model weights should be saved as:
 src/models/best.pt
 ```
 
-Place `best.pt` inside the `src/models/` folder before running inference or launching the Streamlit app. The deployment expects this file to be under `src/models/`.
+Place `best.pt` inside the `src/models/` folder before running inference or launching the Streamlit app. The deployment expects this file to be under `src/models/`
 
 <a id="data-preparation-for-colab"></a>
 
@@ -93,7 +93,7 @@ Traffic density is assigned from the detected vehicle count:
 | 6-15 | `medium` |
 | 16+ | `high` |
 
-This logic is implemented in `src/inference.py`.
+This logic is implemented in `src/inference.py`
 
 ## Project Structure
 
@@ -117,7 +117,7 @@ This logic is implemented in `src/inference.py`.
 └── LICENSE
 ```
 
-Local generated files may include:
+Generated files may include:
 
 ```text
 data/
@@ -125,7 +125,7 @@ outputs/
 yolo_data.zip
 ```
 
-These are ignored by Git.
+These files are not added to Git
 
 ## Environment & Tech Stack
 
@@ -169,11 +169,11 @@ For Windows PowerShell:
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-Restart the terminal if needed so the `uv` command is available.
+Restart the terminal if needed so the `uv` command is available
 
 ### 3. Install dependencies
 
-This project targets Python 3.12 and uses `uv.lock` for reproducible installs.
+This project targets Python 3.12 and uses `uv.lock` for reproducible installs
 
 ```bash
 uv sync
@@ -188,17 +188,17 @@ Core dependencies include:
 
 ### 4. Data Collection
 
-Run the data loader to download the selected BMD-45 subset from Hugging Face.
+Run the data loader to download the selected BMD-45 subset from Hugging Face
 
 ```bash
 uv run python src/load_data.py
 ```
 
-This step collects the traffic-camera images and annotation data needed for the project.
+This step collects the traffic-camera images and annotation data needed for the project
 
 ### 5. Data Preparation
 
-Run the conversion script to convert the selected BMD-45 annotations into YOLO format.
+Run the conversion script to convert the selected BMD-45 annotations into YOLO format
 
 ```bash
 uv run python src/convert.py
@@ -211,7 +211,7 @@ data/yolo/images/
 data/yolo/labels/
 ```
 
-Generated dataset files are not committed to Git. They can be recreated by running the data collection and conversion scripts.
+Generated dataset files are not committed to Git. They can be recreated by running the data collection and conversion scripts
 
 ### 6. Verify Data Annotations
 
@@ -221,11 +221,11 @@ This step draws the converted YOLO bounding boxes on a few sample images to visu
 uv run python src/visualization.py
 ```
 
-Annotated images are saved to `outputs/sample_detection_images/`.
+Annotated images are saved to `outputs/sample_detection_images/`
 
 ### 7. Model Training
 
-Model training is done in Google Colab. Before training, first create the Colab training zip file using the [Data Preparation for Colab](#data-preparation-for-colab) section. Then train the model using the [Training in Google Colab](#training-in-google-colab) section.
+Model training is done in Google Colab. Before training, first create the Colab training zip file using the [Data Preparation for Colab](#data-preparation-for-colab) section. Then train the model using the [Training in Google Colab](#training-in-google-colab) section
 
 After training finishes, download the best model weights and save them as:
 
@@ -235,7 +235,7 @@ src/models/best.pt
 
 ### 8. Run Inference
 
-Then run batch inference over images in `data/yolo/images/` and write vehicle counts plus density labels to a CSV file.
+Then run batch inference over images in `data/yolo/images/` and write vehicle counts plus density labels to a CSV file
 
 ```bash
 uv run python src/inference.py
@@ -258,11 +258,11 @@ The app lets a user upload traffic images and view the original image, image wit
 
 The inference pipeline is implemented by `VehicleDetector` in `src/inference.py`:
 
-1. Load YOLO weights from `src/models/best.pt`.
-2. Run prediction on one image or a folder of images.
-3. Count detected bounding boxes.
-4. Convert the count into a density label.
-5. Save results to CSV when running the script directly.
+1. Load YOLO weights from `src/models/best.pt`
+2. Run prediction on one image or a folder of images
+3. Count detected bounding boxes
+4. Convert the count into a density label
+5. Save results to CSV when running the script directly
 
 Primary command:
 
@@ -274,12 +274,12 @@ uv run python src/inference.py
 
 The Streamlit app in `app/main.py` provides an upload-based demo:
 
-- Upload one or more `.jpg`, `.jpeg`, or `.png` images.
-- Run YOLO detection with `src/models/best.pt`.
-- Show original and annotated images side by side.
-- Display total vehicle count.
-- Display density label.
-- Show a table of detected vehicle classes and counts.
+- Upload one or more `.jpg`, `.jpeg`, or `.png` images
+- Run YOLO detection with `src/models/best.pt`
+- Show original and annotated images side by side
+- Display total vehicle count
+- Display density label
+- Show a table of detected vehicle classes and counts
 
 Start command:
 
@@ -318,7 +318,7 @@ Because the model file is already included, no extra model download or setup is 
 
 ### Why `packages.txt` Was Added
 
-The app uses Ultralytics YOLO, which imports OpenCV through `cv2`. On Streamlit Cloud, OpenCV may require additional Linux system libraries that are not installed by default.
+The app uses Ultralytics YOLO, which imports OpenCV through `cv2`. On Streamlit Cloud, OpenCV may require additional Linux system libraries that are not installed by default
 
 During deployment, the app showed missing library errors such as:
 
@@ -336,26 +336,45 @@ libglib2.0-0t64
 
 ## Known Limitations
 
-- The training subset is very small: only 150 images. This limits model accuracy and generalization.
-- The density estimate is count-based, so it does not consider road area, lane count, camera perspective, speed, or vehicle spacing.
-- Some BMD-45 annotations appear incorrect, which can affect training quality and evaluation.
-- Uploaded images that are blurry, dark, occluded, far from the camera, or taken from unusual angles may produce unreliable detections.
-
-## AI Assistance
-
-Claude from Anthropic was used for assistance with:
-
-- OpenCV bounding box drawing logic in `src/visualization.py`
-- COCO to YOLO conversion formula in `src/convert.py`
+- The training subset is very small: only 150 images. This limits model accuracy and generalization
+- The density estimate is count-based, so it does not consider road area, lane count, camera perspective, speed, or vehicle spacing
+- Some BMD-45 annotations appear incorrect, which can affect training quality and evaluation
+- Uploaded images that are blurry, dark, occluded, far from the camera, or taken from unusual angles may produce unreliable detections
 
 ## Next Steps
 
 Future improvements for this project include:
 
-- **More training data**: Only 150 images were used. Training on a larger BMD-45 subset would significantly improve detection accuracy.
-- **Better density logic**: Weight by vehicle size or use bounding box area coverage instead of raw count.
-- **Video support**: Extend the app to handle video files or live CCTV streams.
-- **Multi-camera support**: Monitor multiple camera feeds simultaneously for city-wide traffic estimation.
+- **More training data**: Only 150 images were used. Training on a larger BMD-45 subset would significantly improve detection accuracy
+- **Better density logic**: Weight by vehicle size or use bounding box area coverage instead of raw count
+- **Video support**: Extend the app to handle video files or live CCTV streams
+- **Multi-camera support**: Monitor multiple camera feeds simultaneously for city-wide traffic estimation
+
+## AI Assistance
+
+AI tools were used to support code implementation, Streamlit UI improvements, and README formatting. All AI-generated suggestions were reviewed, edited, and tested before being included in the final project.
+
+No private data, API keys, credentials, or restricted datasets were used.
+
+### Tools Used
+
+- [Claude from Anthropic](https://www.anthropic.com/claude)
+- [ChatGPT from OpenAI](https://chatgpt.com/)
+
+These tools were used only for chat-based assistance. They were not connected to my IDE and did not automatically generate, edit, or commit code. No automated coding agents such as Claude Code, Codex, or GitHub Copilot were used.
+
+### Prompts Used
+
+<details>
+<summary><strong>OpenCV Bounding Box Drawing</strong></summary>
+
+Prompt used:
+
+> Help me write beginner-friendly Python code using OpenCV to draw bounding boxes and class labels on traffic images. The dataset already has annotations, so I only want to visualize the existing labels.
+
+Used for: `src/visualization.py`
+
+</details>
 
 ## License
 
