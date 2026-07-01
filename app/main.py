@@ -11,7 +11,7 @@ from inference import VehicleDetector
 class TrafficDensityApp:
     def __init__(self, model_path: str):
         """
-        __init__: 
+        __init__: Function to initialize the TrafficDensityApp with the YOLO model weights and set up the output folder
 
         Args:
             model_path: str
