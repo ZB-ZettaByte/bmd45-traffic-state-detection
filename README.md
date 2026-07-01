@@ -321,14 +321,14 @@ Because the model file is already included, no extra model download or setup is 
 
 ### Why `packages.txt` Was Added
 
-The app uses Ultralytics YOLO, which imports OpenCV through `cv2`. On Streamlit Cloud, OpenCV may require additional Linux system libraries that are not installed by default
+The app uses Ultralytics YOLO, which imports OpenCV through **cv2**. On Streamlit Cloud, OpenCV may require additional Linux system libraries that are not installed by default
 
 During deployment, the app showed missing library errors such as:
 
-**- ImportError: libGL.so.1: cannot open shared object file
-- ImportError: libgthread-2.0.so.0: cannot open shared object file**
+- **ImportError: libGL.so.1: cannot open shared object file**
+- **ImportError: libgthread-2.0.so.0: cannot open shared object file**
 
-To fix these deployment errors, a **packages.txt **file was added.
+To fix these deployment errors, a **packages.txt** file was added.
 
 The final **packages.txt** contains:
 
