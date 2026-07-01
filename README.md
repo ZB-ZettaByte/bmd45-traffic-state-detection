@@ -361,7 +361,7 @@ No private data, API keys, credentials, or restricted datasets were used.
 - [Claude from Anthropic](https://www.anthropic.com/claude)
 - [ChatGPT from OpenAI](https://chatgpt.com/)
 
-These tools were used only for chat-based assistance. They were not connected to my IDE and did not automatically generate, edit, or commit code. No automated coding agents such as Claude Code, Codex, or GitHub Copilot were used.
+These tools were used only for chat-based assistance.
 
 ### Prompts Used
 
@@ -370,9 +370,68 @@ These tools were used only for chat-based assistance. They were not connected to
 
 Prompt used:
 
-> Help me write beginner-friendly Python code using OpenCV to draw bounding boxes and class labels on traffic images. The dataset already has annotations, so I only want to visualize the existing labels.
+> Explain how to visualize YOLO-format label files on traffic images using OpenCV. I want to understand how to read a YOLO label file, convert normalized center-based coordinates back to pixel coordinates, draw bounding boxes, add class labels, and return the annotated image. Please keep the explanation beginner, simpler way and show a small example function without changing the original dataset annotations.
 
-Used for: `src/visualization.py`
+Used for guidance in the `draw_boxes(self, image_path, label_path)` method in `src/visualization.py`.
+
+</details>
+
+<details>
+<summary><strong>Streamlit GitHub Link and Footer Improvements</strong></summary>
+
+Prompt used:
+
+> Please help me fix small UI issues in only these two Streamlit methods: `display_github_link(self)` and `show_notes_and_footer(self)`.
+>
+> Keep the current OOP structure and update only the existing methods. Do not change the detection logic, upload logic, multi-image support, or vehicle counting.
+>
+> 1. For `display_github_link(self)`, make the GitHub link look cleaner by replacing the badge-style link with a small GitHub button using an inline SVG icon. Link it to the project GitHub repository.
+>
+> 2. For `show_notes_and_footer(self)`, remove the repeated notes sentence, keep the Notes and Limitations section simple, fix the footer HTML, and show only the copyright text.
+>
+> Do not make a big card header. Do not change existing method names. Do not remove comments or docstrings. Please provide replacement snippets only for `display_github_link(self)` and `show_notes_and_footer(self)`.
+
+Used for guidance in the `display_github_link(self)` and `show_notes_and_footer(self)` methods in `app/main.py`.
+
+</details>
+
+<details>
+<summary><strong>COCO to YOLO Bounding Box Conversion</strong></summary>
+
+Prompt used:
+
+> Explain the formula for converting a bounding box from COCO format to YOLO format. COCO uses `[x, y, width, height]` with `x` and `y` as the top-left corner. YOLO needs normalized center coordinates: `x_center`, `y_center`, `width`, and `height`. Please explain the calculation step by step in a beginner way so I can apply it in my existing conversion method.
+
+Used for guidance in the `convert_bbox(self, bbox, img_width, img_height)` method in `src/convert.py`.
+
+</details>
+
+<details>
+<summary><strong>README Density Table and Project Structure Formatting</strong></summary>
+
+Prompt used:
+
+> Can you help me format two small README sections? First format the traffic density logic as a Markdown table using vehicle count and density label:
+>
+> - 0 vehicles = unclear
+> - 1–5 vehicles = low
+> - 6–15 vehicles = medium
+> - 16+ vehicles = high
+>
+> Also help me format the Project Structure section in a README style. Keep it simple
+
+Used for guidance in formatting the `Density Label Logic` and `Project Structure` sections in `README.md`.
+
+</details>
+
+<details>
+<summary><strong>README Technology Badges Formatting</strong></summary>
+
+Prompt used:
+
+> Can you help me format simple README technology badges for my project? I want badges for the main tools used, such as Python 3.12, YOLO, OpenCV, Streamlit, Hugging Face Datasets, uv, Google Colab, and VS Code. Please keep the badges clean for a GitHub README.
+
+Used for guidance in formatting the technology badges section in `README.md`.
 
 </details>
 
