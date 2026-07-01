@@ -61,7 +61,7 @@ The trained model weights should be saved as:
 src/models/best.pt
 ```
 
-Place **best.pt **inside the **src/models/** folder before running inference or launching the Streamlit app. The deployment expects this file to be under **src/models/**
+Place **best.pt** inside the **src/models/** folder before running inference or launching the Streamlit app. The deployment expects this file to be under **src/models/**
 
 <a id="data-preparation-for-colab"></a>
 
