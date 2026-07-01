@@ -4,9 +4,8 @@ from convert import COCOToYOLOConverter
 # Main function to load the BMD-45 dataset and convert it to YOLO format
 def main():
     """
-    Main data loading function that:
-    1. Loads the BMD-45 dataset from Hugging Face:
-       https://huggingface.co/datasets/iisc-aim/BMD-45
+    Load a small part of the BMD-45 dataset and convert it to YOLO format.
+    Dataset: https://huggingface.co/datasets/iisc-aim/BMD-45
     """
 
     # Load the BMD-45 dataset from Hugging Face
