@@ -21,7 +21,7 @@ This project uses the [BMD-45 dataset](https://huggingface.co/datasets/iisc-aim/
 - Source split for training subset: first 150 samples from training split
 - Source split for demo subset: first 30 samples from validation split
 
-The frames were selected with the Hugging Face `datasets` library using `streaming=True` to avoid downloading the full 45k-image dataset. The subset selection is implemented in `src/load_data.py`:
+The frames were selected with the Hugging Face **datasets** library using **streaming=True** to avoid downloading the full 45k-image dataset. The subset selection is implemented in **src/load_data.py**:
 
 ```python
 ds = load_dataset("iisc-aim/BMD-45", streaming=True)
@@ -50,7 +50,7 @@ Training configuration:
 - Epochs: 80
 - Image size: 640
 - Batch size: 16
-- Augmentation: enabled with `augment=True`
+- Augmentation: enabled with **augment=True**
 - Training environment: Google Colab, T4 GPU
 
 Training notebook: https://colab.research.google.com/drive/1lakC27oJayAtklOCSkJTtABzhzZApsY7?usp=sharing
@@ -61,13 +61,13 @@ The trained model weights should be saved as:
 src/models/best.pt
 ```
 
-Place `best.pt` inside the `src/models/` folder before running inference or launching the Streamlit app. The deployment expects this file to be under `src/models/`
+Place **best.pt **inside the **src/models/** folder before running inference or launching the Streamlit app. The deployment expects this file to be under **src/models/**
 
 <a id="data-preparation-for-colab"></a>
 
 ## Data Preparation for Colab
 
-Before using the Colab notebook for training, zip the `sample_detection_images/` folder created by running the visualization script:
+Before using the Colab notebook for training, zip the **sample_detection_images/** folder created by running the visualization script:
 
 ```bash
 uv run python src/visualization.py
@@ -83,7 +83,7 @@ https://colab.research.google.com/drive/1lakC27oJayAtklOCSkJTtABzhzZApsY7?usp=sh
 
 The training steps are included inside the Google Colab notebook.
 
-After training finishes, download the best model weights and save them inside the `src/models/` folder as `best.pt`
+After training finishes, download the best model weights and save them inside the **src/models/** folder as **best.pt**
 
 ## Density Label Logic
 
@@ -96,7 +96,7 @@ Traffic density is assigned from the detected vehicle count:
 | 6-15 | `medium` |
 | 16+ | `high` |
 
-This logic is implemented in `src/inference.py`
+This logic is implemented in **src/inference.py**
 
 ## Project Structure
 
@@ -156,7 +156,7 @@ cd bmd45-traffic-state-detection
 
 ### 2. Install uv
 
-If `uv` is not installed, install it based on your operating system. See the official Astral installation guide for more options:
+If **uv** is not installed, install it based on your operating system. See the official Astral installation guide for more options:
 
 https://docs.astral.sh/uv/getting-started/installation/#installation-methods
 
@@ -172,11 +172,11 @@ For Windows PowerShell:
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-Restart the terminal if needed so the `uv` command is available
+Restart the terminal if needed so the **uv** command is available
 
 ### 3. Install dependencies
 
-This project targets Python 3.12 and uses `uv.lock` for reproducible installs
+This project targets Python 3.12 and uses **uv.lock** for reproducible installs
 
 ```bash
 uv sync
@@ -184,10 +184,10 @@ uv sync
 
 Core dependencies include:
 
-- `datasets`
-- `opencv-python`
-- `streamlit`
-- `ultralytics`
+- datasets
+- opencv-python
+- streamlit
+- ultralytics
 
 ### 4. Data Collection
 
@@ -224,7 +224,7 @@ This step draws the converted YOLO bounding boxes on a few sample images to visu
 uv run python src/visualization.py
 ```
 
-Annotated images are saved to `outputs/sample_detection_images/`
+Annotated images are saved to **outputs/sample_detection_images/**
 
 ### 7. Model Training
 
@@ -238,12 +238,12 @@ src/models/best.pt
 
 ### 8. Run Inference
 
-Then run batch inference over images in `data/yolo/images/` and write vehicle counts plus density labels to a CSV file
+Then run batch inference over images in **data/yolo/images/** and write vehicle counts plus density labels to a CSV file
 
 ```bash
 uv run python src/inference.py
 ```
-Output saved to `outputs/sample_predictions.csv`
+Output saved to **outputs/sample_predictions.csv**
 
 ### 9. Start the Streamlit App
 
@@ -253,15 +253,15 @@ Run the Streamlit app locally:
 uv run streamlit run app/main.py
 ```
 
-After Streamlit starts, open `http://localhost:8501`
+After Streamlit starts, open **http://localhost:8501**
 
 The app lets a user upload traffic images and view the original image, image with detections, vehicle counts, density label, and notes/limitations.
 
 ## Inference Workflow
 
-The inference pipeline is implemented by `VehicleDetector` in `src/inference.py`:
+The inference pipeline is implemented by VehicleDetector in **src/inference.py:**
 
-1. Load YOLO weights from `src/models/best.pt`
+1. Load YOLO weights from **src/models/best.pt**
 2. Run prediction on one image or a folder of images
 3. Count detected bounding boxes
 4. Convert the count into a density label
@@ -275,10 +275,10 @@ uv run python src/inference.py
 
 ## Streamlit App
 
-The Streamlit app in `app/main.py` provides an upload-based demo:
+The Streamlit app in **app/main.py **provides an upload-based demo:
 
-- Upload one or more `.jpg`, `.jpeg`, or `.png` images
-- Run YOLO detection with `src/models/best.pt`
+- Upload one or more **.jpg, .jpeg, or .png** images
+- Run YOLO detection with **src/models/best.pt**
 - Show original and annotated images side by side
 - Display total vehicle count
 - Display density label
@@ -306,12 +306,12 @@ The app can be deployed to Streamlit Cloud for free.
 2. Go to [share.streamlit.io](https://share.streamlit.io)
 3. Log in to Streamlit Cloud
 4. Connect your GitHub account
-5. Click `Create app`
-6. Choose `Deploy a public app from GitHub`.
-7. In `Repository`, select the GitHub repository, for example: `ZB-ZettaByte/bmd45-traffic-state-detection`
-8. In `Branch`, select: `main`
-9. In `Main file path`, enter: `app/main.py`
-10. Click `Deploy`
+5. Click **Create app**
+6. Choose **Deploy** a public app from GitHub.
+7. In **Repository**, select the GitHub repository, for example: **ZB-ZettaByte/bmd45-traffic-state-detection**
+8. In **Branch**, select: **main**
+9. In Main file path, enter: **app/main.py**
+10. Click **Deploy**
 
 The model weights are included in the repository at: `src/models/best.pt`
 
@@ -325,12 +325,12 @@ The app uses Ultralytics YOLO, which imports OpenCV through `cv2`. On Streamlit 
 
 During deployment, the app showed missing library errors such as:
 
-- `ImportError: libGL.so.1: cannot open shared object file`
-- `ImportError: libgthread-2.0.so.0: cannot open shared object file`
+**- ImportError: libGL.so.1: cannot open shared object file
+- ImportError: libgthread-2.0.so.0: cannot open shared object file**
 
-To fix these deployment errors, a `packages.txt` file was added.
+To fix these deployment errors, a **packages.txt **file was added.
 
-The final `packages.txt` contains:
+The final **packages.txt** contains:
 
 ```txt
 libgl1
